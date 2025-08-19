@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>PIC32MZ_UAC2_8CH_OUTPUT</name>
+            <creation-uuid>d5c3501b-8200-4605-bbca-8334b56fb92b</creation-uuid>
+            <make-project-type>0</make-project-type>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <asminc-extensions/>
+            <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>src/app</sourceRootElem>
+                <sourceRootElem>src/drivers/clk</sourceRootElem>
+                <sourceRootElem>src/drivers/i2s</sourceRootElem>
+                <sourceRootElem>src/drivers/port</sourceRootElem>
+                <sourceRootElem>src/drivers/tmr</sourceRootElem>
+                <sourceRootElem>src/drivers/usb</sourceRootElem>
+                <sourceRootElem>src/mcu_xc41</sourceRootElem>
+                <sourceRootElem>src/drivers/dma</sourceRootElem>
+                <sourceRootElem>src/drivers/uart</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>default</name>
+                    <type>2</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
+        </data>
+    </configuration>
+</project>
