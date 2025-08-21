@@ -34,11 +34,6 @@ void i2s_init (void)
                 // 00 = Interrupt is generated when the last transfer is shifted out of SPISR and transmit operations are complete
             | _SPI1CON_ON_MASK
             ;
-    // Set interupt priority on I2S output
-    IPC27SET = 0
-            | (0x6 << _IPC27_SPI1TXIP_POSITION)        // SPI1 TX Interrupt Priority
-            | (0x3 << _IPC27_SPI1TXIS_POSITION)        // SPI1 TX Interrupt Sub-Priority
-            ;
     
     /**************************************************************************/
     /* I2S2 output module initialisation                                      */
@@ -50,11 +45,11 @@ void i2s_init (void)
             ;    
     SPI2CON = 0
             | _SPI2CON_FRMPOL_MASK      // Frame Sync Polarity
-            //| _SPI2CON_MCLKSEL_MASK     // MCLK is used by the Baud Rate Generator
+            | _SPI2CON_MCLKSEL_MASK     // MCLK is used by the Baud Rate Generator
             | _SPI2CON_ENHBUF_MASK      // Enhanced Buffer mode is enabled
             | _SPI2CON_MODE32_MASK      // 32-bit Data, 32-bit FIFO, 32-bit Channel/64-bit Frame
             | _SPI2CON_CKP_MASK         // Idle state for clock is a high level; active state is a low leve
-            //| _SPI2CON_MSTEN_MASK       // Master mode
+            | _SPI2CON_MSTEN_MASK       // Master mode
             | _SPI2CON_DISSDI_MASK      // SDIx pin is not used by the SPI module (pin is controlled by PORT function)
             | (0x2 << _SPI2CON_STXISEL_POSITION) // see lower            
                 // STXISEL<1:0>: SPI Transmit Buffer Empty Interrupt Mode bits
@@ -63,11 +58,6 @@ void i2s_init (void)
                 // 01 = Interrupt is generated when the buffer is completely empty
                 // 00 = Interrupt is generated when the last transfer is shifted out of SPISR and transmit operations are complete
             | _SPI2CON_ON_MASK
-            ;
-    // Set interupt priority on I2S output
-    IPC35SET = 0
-            | (0x6 << _IPC35_SPI2RXIP_POSITION)        // SPI2 RX Interrupt Priority
-            | (0x3 << _IPC35_SPI2RXIS_POSITION)        // SPI2 RX Interrupt Sub-Priority
             ;
     
     /**************************************************************************/
@@ -94,11 +84,6 @@ void i2s_init (void)
                 // 00 = Interrupt is generated when the last transfer is shifted out of SPISR and transmit operations are complete
             | _SPI3CON_ON_MASK
             ;    
-    // Set interupt priority on I2S output
-    IPC39SET = 0
-            | (0x6 << _IPC39_SPI3TXIP_POSITION)        // SPI3 TX Interrupt Priority
-            | (0x3 << _IPC39_SPI3TXIS_POSITION)        // SPI3 TX Interrupt Sub-Priority
-            ;
     
     /**************************************************************************/
     /* I2S4 output module initialisation                                      */
@@ -123,11 +108,6 @@ void i2s_init (void)
                 // 01 = Interrupt is generated when the buffer is completely empty
                 // 00 = Interrupt is generated when the last transfer is shifted out of SPISR and transmit operations are complete
             | _SPI4CON_ON_MASK
-            ;
-    // Set interupt priority on I2S output
-    IPC41SET = 0
-            | (0x6 << _IPC41_SPI4TXIP_POSITION)        // SPI4 TX Interrupt Priority
-            | (0x3 << _IPC41_SPI4TXIS_POSITION)        // SPI4 TX Interrupt Sub-Priority
             ;
     
     _CLK_I2S_ON();
