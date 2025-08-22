@@ -156,19 +156,19 @@ void dma_output_8ch32_start (const uint16_t size)
     DCH1DSIZ = 4;                           // Destination size    
     DCH1SSIZ = 8;                           // Source size
     DCH1CSIZ = 8;                           // Cell data size: channel audio data size (4 bytes)
-    DCH1SSA = KVA_TO_PA( pBuf+4 );          // Source data start address
+    DCH1SSA = KVA_TO_PA( pBuf+8 );          // Source data start address
     
     // Channel 56 config
     DCH2DSIZ = 4;                           // Destination size    
     DCH2SSIZ = 8;                           // Source size
     DCH2CSIZ = 8;                           // Cell data size: channel audio data size (4 bytes)
-    DCH2SSA = KVA_TO_PA( pBuf+8 );          // Source data start address
+    DCH2SSA = KVA_TO_PA( pBuf+16 );          // Source data start address
     
     // Channel 78 config
     DCH3DSIZ = 4;                           // Destination size    
     DCH3SSIZ = 8;                           // Source size
     DCH3CSIZ = 8;                           // Cell data size: channel audio data size (4 bytes)
-    DCH3SSA = KVA_TO_PA( pBuf+12 );         // Source data start address
+    DCH3SSA = KVA_TO_PA( pBuf+24 );         // Source data start address
     
     // Config buffer transfer
     DCH4SSIZ = size;                        // Source size    
@@ -204,19 +204,19 @@ void dma_output_8ch16_start (const uint16_t size)
     DCH1DSIZ = 2;                           // Destination size    
     DCH1SSIZ = 4;                           // Source size
     DCH1CSIZ = 4;                           // Cell data size: channel audio data size (4 bytes)
-    DCH1SSA = KVA_TO_PA( pBuf+2 );          // Source data start address
+    DCH1SSA = KVA_TO_PA( pBuf+4 );          // Source data start address
     
     // Channel 56 config
     DCH2DSIZ = 2;                           // Destination size    
     DCH2SSIZ = 4;                           // Source size
     DCH2CSIZ = 4;                           // Cell data size: channel audio data size (4 bytes)
-    DCH2SSA = KVA_TO_PA( pBuf+4 );          // Source data start address
+    DCH2SSA = KVA_TO_PA( pBuf+8 );          // Source data start address
     
     // Channel 78 config
     DCH3DSIZ = 2;                           // Destination size
     DCH3SSIZ = 4;                           // Source size
     DCH3CSIZ = 4;                           // Cell data size: channel audio data size (4 bytes)
-    DCH3SSA = KVA_TO_PA( pBuf+6 );          // Source data start address
+    DCH3SSA = KVA_TO_PA( pBuf+12 );          // Source data start address
     
     // Config buffer transfer
     DCH4SSIZ = size;                        // Source size    

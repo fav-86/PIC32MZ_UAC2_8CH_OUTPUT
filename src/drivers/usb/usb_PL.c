@@ -299,7 +299,7 @@ static inline void usb_PL_ReqProcess ( void *pbuf )
             /***************************************************/
             /********** Audio Device - specific requests *******/
             /***************************************************/
-            case CSREQ_SET_CURR_INTERFACE:                
+            case CSREQ_SET_CURR_INTERFACE:
                 switch (p->bIntfID_H)
                 {
                     case AUDIO_SCLOCK_TERMINAL_OUTPUT:

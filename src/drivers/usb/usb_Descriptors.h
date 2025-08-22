@@ -266,8 +266,8 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
                 AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
-                0x02,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
-                16,                                     /* bBitResolution (32-bits per sample) */
+                0x02,                                   /* bSubslotSize :  2 Bytes per frame (32bits) */
+                16,                                     /* bBitResolution (16-bits per sample) */
                 /* 06 byte */ 
  
                 /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
