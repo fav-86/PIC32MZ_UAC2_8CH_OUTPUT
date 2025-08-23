@@ -165,7 +165,7 @@ void sys_init (int sysfreq)
     PMD2SET = 0xffffffff;
     PMD3SET = 0xffffffff;
     PMD4SET = 0xffffffff & ~(_PMD4_T1MD_MASK | _PMD4_T2MD_MASK | _PMD4_T3MD_MASK);
-    PMD5SET = 0xffffffff & ~(_PMD5_SPI1MD_MASK | _PMD5_SPI2MD_MASK | _PMD5_SPI3MD_MASK | _PMD5_SPI4MD_MASK | _PMD5_USBMD_MASK);
+    PMD5SET = 0xffffffff & ~(_PMD5_SPI1MD_MASK | _PMD5_SPI2MD_MASK | _PMD5_SPI3MD_MASK | _PMD5_SPI4MD_MASK | _PMD5_USBMD_MASK | _PMD5_U1MD_MASK);
     PMD6SET = 0xffffffff & ~(_PMD6_REFO1MD_MASK);
     PMD7SET = 0xffffffff & ~(_PMD7_DMAMD_MASK);
 }

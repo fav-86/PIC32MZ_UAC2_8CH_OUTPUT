@@ -63,8 +63,8 @@ typedef union {
 #define I2S_MCLK_1024Fs
 
 // Set I2S output modules
-#define I2SBUF_CH12                     SPI1BUF
-#define I2SBUF_CH34                     SPI2BUF
+#define I2SBUF_CH12                     SPI2BUF
+#define I2SBUF_CH34                     SPI1BUF
 #define I2SBUF_CH56                     SPI3BUF
 #define I2SBUF_CH78                     SPI4BUF
 

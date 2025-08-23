@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/uart/uart.c</file>
             <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/dma/dma.c</file>
             <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/app/system.h</file>
-            <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/uart/uart.h</file>
+            <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/usb/usb_Descriptors.h</file>
             <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/app/main.c</file>
+            <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/i2s/i2s.h</file>
+            <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/i2s/i2s.c</file>
             <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/usb/usb_PL.c</file>
+            <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/dma/dma.h</file>
+            <file>file:/E:/Projects/git_projects/PIC32MZ_UAC2_8CH_OUTPUT.X/src/drivers/port/port.c</file>
         </group>
     </open-files>
 </project-private>
