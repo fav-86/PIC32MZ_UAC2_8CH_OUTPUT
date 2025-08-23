@@ -144,22 +144,26 @@ static inline void usb_PL_InterfaceState_Update ( USB_SETUP_PACKET *p )
         
         switch (p->bAltID) {
             case USB_AUDIO_OUTPUT_ALTSET_2CH16_ON:
+                _I2S_Mode16_set();
                 tEp1Fifo.len >>= 1;
                 dma_output_2ch16_start(tEp1Fifo.len);                
                 break;
             
             case USB_AUDIO_OUTPUT_ALTSET_2CH24_ON:
             case USB_AUDIO_OUTPUT_ALTSET_2CH32_ON:
+                _I2S_Mode32_set();
                 dma_output_2ch32_start(tEp1Fifo.len);
                 break;
                 
             case USB_AUDIO_OUTPUT_ALTSET_8CH16_ON:
+                _I2S_Mode16_set();
                 tEp1Fifo.len >>= 1;
                 dma_output_8ch16_start(tEp1Fifo.len);                
                 break;
             
             case USB_AUDIO_OUTPUT_ALTSET_8CH24_ON:
             case USB_AUDIO_OUTPUT_ALTSET_8CH32_ON:
+                _I2S_Mode32_set();
                 dma_output_8ch32_start(tEp1Fifo.len);
                 break;
         }

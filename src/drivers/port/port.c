@@ -46,10 +46,10 @@ void port_init (void)
     // I2S2 remappable inputs
     SDI2R = 0x1;    // 0001 = RPG7 - SDI2
     SS2R = 0x1;     // 0001 = RPG9 - SS2in
-    RPB5R = 0x6;    // 0110 = SDO2
+    RPB9R = 0x6;    // 0110 = SDO2
     
     // I2S3 remappable outputs
-    RPB9R = 0x7;    // 0111 = SDO3
+    RPB5R = 0x7;    // 0111 = SDO3
     RPB15R = 0x7;   // 0111 = SS3
     
     // I2S4 remappable outputs

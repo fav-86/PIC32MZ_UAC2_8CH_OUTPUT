@@ -3,8 +3,6 @@
 #include "../../app/system.h"
 #include "i2s.h"
 
-
-
 /*
  SPI based I2S modules initialisation  
  */

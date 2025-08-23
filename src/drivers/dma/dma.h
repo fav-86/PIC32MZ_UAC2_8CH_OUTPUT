@@ -19,9 +19,6 @@
 extern "C" {
 #endif
 
-#define _DMA_SUSPEND_ALL()                          {   DMACONbits.SUSPEND = 1;\
-                                                        while (DMACONbits.DMABUSY); }
-#define _DMA_RESUME_ALL()                               DMACONbits.SUSPEND = 0
     
 /******************* Output transfer defines ********************************/
 #define _DMA_OutputSourceAddress_Set(adr)            {  DCH4SSA = adr; DCH5DSA = adr;}
