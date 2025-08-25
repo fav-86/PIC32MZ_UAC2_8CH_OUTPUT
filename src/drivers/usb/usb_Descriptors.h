@@ -200,7 +200,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                     0x01,0x01,                              /* wTerminalType AUDIO_TERMINAL_USB_STREAMING  0x0101 */
                     0x00,                                   /* bAssocTerminal */
                     AUDIO_SCLOCK_TERMINAL_OUTPUT,           /* bCSourceID */
-                    0x08,                                   /* bNrChannels */
+                    0x00,                                   /* bNrChannels */
                     0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000  all channels control */
                     0x00,0x00,                              /* bmControls - 0x0003 Copy Protect Control (read/write) */
                     0x00,                                   /* iChannelNames */
@@ -257,7 +257,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x02,                                   /* bNrChannels */
-                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x03,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000003 driver choose channels */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 
@@ -320,7 +320,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x02,                                   /* bNrChannels */
-                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x03,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000003 driver choose channels */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 
@@ -383,7 +383,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x02,                                   /* bNrChannels */
-                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x03,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000003 driver choose channels */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 
@@ -447,7 +447,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x08,                                   /* bNrChannels */
-                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x3F,0x06,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 
@@ -510,7 +510,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x08,                                   /* bNrChannels */
-                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x3F,0x06,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 
@@ -573,7 +573,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x08,                                   /* bNrChannels */
-                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x3F,0x06,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 
