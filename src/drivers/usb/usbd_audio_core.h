@@ -122,13 +122,22 @@ enum {
     AUDIO_SCLOCK_TERMINAL_INPUT
 };
 
-#define USB_AUDIO_OUTPUT_ALTSET_OFF                   0x0
-#define USB_AUDIO_OUTPUT_ALTSET_2CH16_ON              0x1
-#define USB_AUDIO_OUTPUT_ALTSET_2CH24_ON              0x2
-#define USB_AUDIO_OUTPUT_ALTSET_2CH32_ON              0x3
-#define USB_AUDIO_OUTPUT_ALTSET_8CH16_ON              0x4
-#define USB_AUDIO_OUTPUT_ALTSET_8CH24_ON              0x5
-#define USB_AUDIO_OUTPUT_ALTSET_8CH32_ON              0x6
+#define USB_AUDIO_OUTPUT_ALTSET_OFF                   0
+#define USB_AUDIO_OUTPUT_ALTSET_2CH16_M0_ON           1
+#define USB_AUDIO_OUTPUT_ALTSET_2CH24_M0_ON           2
+#define USB_AUDIO_OUTPUT_ALTSET_2CH32_M0_ON           3
+#define USB_AUDIO_OUTPUT_ALTSET_2CH16_M1_ON           4
+#define USB_AUDIO_OUTPUT_ALTSET_2CH24_M1_ON           5
+#define USB_AUDIO_OUTPUT_ALTSET_2CH32_M1_ON           6
+#define USB_AUDIO_OUTPUT_ALTSET_8CH16_M0_ON           7
+#define USB_AUDIO_OUTPUT_ALTSET_8CH24_M0_ON           8
+#define USB_AUDIO_OUTPUT_ALTSET_8CH32_M0_ON           9
+#define USB_AUDIO_OUTPUT_ALTSET_8CH16_M1_ON           10
+#define USB_AUDIO_OUTPUT_ALTSET_8CH24_M1_ON           11
+#define USB_AUDIO_OUTPUT_ALTSET_8CH32_M1_ON           12
+#define USB_AUDIO_OUTPUT_ALTSET_8CH16_M2_ON           13
+#define USB_AUDIO_OUTPUT_ALTSET_8CH24_M2_ON           14
+#define USB_AUDIO_OUTPUT_ALTSET_8CH32_M2_ON           15
 
 
 
@@ -152,7 +161,7 @@ enum {
 #define AUDIO_OUT_EP                                  0x01U
 #define AUDIO_FB_EP                                   0x81U
 #define AUDIO_IN_EP                                   0x85U
-#define USB_AUDIO_CONFIG_DESC_SIZ                     399U // 187
+#define USB_AUDIO_CONFIG_DESC_SIZ                     876U // 399 + 159 + 159 + 159
 
 #define AUDIO_OUT_TC                                  0x01U
 #define AUDIO_IN_TC                                   0x02U

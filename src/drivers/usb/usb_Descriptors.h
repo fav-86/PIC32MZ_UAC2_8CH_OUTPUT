@@ -200,7 +200,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                     0x01,0x01,                              /* wTerminalType AUDIO_TERMINAL_USB_STREAMING  0x0101 */
                     0x00,                                   /* bAssocTerminal */
                     AUDIO_SCLOCK_TERMINAL_OUTPUT,           /* bCSourceID */
-                    0x00,                                   /* bNrChannels */
+                    0x08,                                   /* bNrChannels */
                     0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000  all channels control */
                     0x00,0x00,                              /* bmControls - 0x0003 Copy Protect Control (read/write) */
                     0x00,                                   /* iChannelNames */
@@ -239,7 +239,196 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
             AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
             USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
             AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
-            USB_AUDIO_OUTPUT_ALTSET_2CH16_ON,         /* bAlternateSetting */
+            USB_AUDIO_OUTPUT_ALTSET_2CH16_M0_ON,    /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 1                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x02,                                   /* bNrChannels */
+                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x02,                                   /* bSubslotSize :  2 Bytes per frame (32bits) */
+                16,                                     /* bBitResolution (16-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt2 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_2CH24_M0_ON,    /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 1                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x02,                                   /* bNrChannels */
+                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x04,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
+                24,                                     /* bBitResolution (24-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt3 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_2CH32_M0_ON,    /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 1                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x02,                                   /* bNrChannels */
+                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x00000000 driver choose channels */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x04,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
+                32,                                     /* bBitResolution (32-bits per sample) */
+                /* 06 byte */
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */    
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt4 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_2CH16_M1_ON,    /* bAlternateSetting */
             0x02,                                   /* bNumEndpoints */
             USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
             USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
@@ -298,11 +487,11 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
                 /* 07 byte */
     
-            /* Interface Descriptor - Audio Streaming OUT Interface - Alt2 */
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt5 */
             AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
             USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
             AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
-            USB_AUDIO_OUTPUT_ALTSET_2CH24_ON,       /* bAlternateSetting */
+            USB_AUDIO_OUTPUT_ALTSET_2CH24_M1_ON,    /* bAlternateSetting */
             0x02,                                   /* bNumEndpoints */
             USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
             USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
@@ -361,11 +550,11 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
                 /* 07 byte */
     
-            /* Interface Descriptor - Audio Streaming OUT Interface - Alt3 */
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt6 */
             AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
             USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
             AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
-            USB_AUDIO_OUTPUT_ALTSET_2CH32_ON,       /* bAlternateSetting */
+            USB_AUDIO_OUTPUT_ALTSET_2CH32_M1_ON,    /* bAlternateSetting */
             0x02,                                   /* bNumEndpoints */
             USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
             USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
@@ -425,11 +614,11 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 /* 07 byte */ 
     
     
-            /* Interface Descriptor - Audio Streaming OUT Interface - Alt4 */
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt7 */
             AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
             USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
             AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
-            USB_AUDIO_OUTPUT_ALTSET_8CH16_ON,       /* bAlternateSetting */
+            USB_AUDIO_OUTPUT_ALTSET_8CH16_M0_ON,    /* bAlternateSetting */
             0x02,                                   /* bNumEndpoints */
             USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
             USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
@@ -447,7 +636,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x08,                                   /* bNrChannels */
-                0x3F,0x06,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
+                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 
@@ -456,8 +645,8 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
                 AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
-                0x02,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
-                16,                                     /* bBitResolution (32-bits per sample) */
+                0x02,                                   /* bSubslotSize :  2 Bytes per frame (32bits) */
+                16,                                     /* bBitResolution (16-bits per sample) */
                 /* 06 byte */ 
  
                 /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
@@ -488,11 +677,201 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
                 /* 07 byte */
     
-            /* Interface Descriptor - Audio Streaming OUT Interface - Alt5 */
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt8 */
             AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
             USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
             AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
-            USB_AUDIO_OUTPUT_ALTSET_8CH24_ON,       /* bAlternateSetting */
+            USB_AUDIO_OUTPUT_ALTSET_8CH24_M0_ON,    /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 2                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x08,                                   /* bNrChannels */
+                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x04,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
+                24,                                     /* bBitResolution (24-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt9 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_8CH32_M0_ON,    /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 2                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x08,                                   /* bNrChannels */
+                0x00,0x00,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x04,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
+                32,                                     /* bBitResolution (32-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */  
+    
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt10 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_8CH16_M1_ON,    /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 2                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x08,                                   /* bNrChannels */
+                0x3F,0x06,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x02,                                   /* bSubslotSize :  2 Bytes per frame (32bits) */
+                16,                                     /* bBitResolution (16-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt11 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_8CH24_M1_ON,       /* bAlternateSetting */
             0x02,                                   /* bNumEndpoints */
             USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
             USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
@@ -520,7 +899,7 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
                 USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
                 0x04,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
-                24,                                     /* bBitResolution (32-bits per sample) */
+                24,                                     /* bBitResolution (24-bits per sample) */
                 /* 06 byte */ 
  
                 /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
@@ -551,11 +930,11 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
                 /* 07 byte */
     
-            /* Interface Descriptor - Audio Streaming OUT Interface - Alt6 */
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt12 */
             AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
             USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
             AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
-            USB_AUDIO_OUTPUT_ALTSET_8CH32_ON,       /* bAlternateSetting */
+            USB_AUDIO_OUTPUT_ALTSET_8CH32_M1_ON,       /* bAlternateSetting */
             0x02,                                   /* bNumEndpoints */
             USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
             USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
@@ -574,6 +953,196 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
                 0x08,                                   /* bNrChannels */
                 0x3F,0x06,0x00,0x00,                    /* bmChannelConfig 0x0000063F  all channels control */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x04,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
+                32,                                     /* bBitResolution (32-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */
+    
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt13 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_8CH16_M2_ON,       /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 2                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x08,                                   /* bNrChannels */
+                0x7F,0x01,0x00,0x00,                    /* bmChannelConfig 0x0000017F  all channels control */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x02,                                   /* bSubslotSize :  2 Bytes per frame (32bits) */
+                16,                                     /* bBitResolution (16-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt14 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_8CH24_M2_ON,       /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 2                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x08,                                   /* bNrChannels */
+                0x7F,0x01,0x00,0x00,                    /* bmChannelConfig 0x0000017F  all channels control */
+                0x00,                                   /* iChannelNames */
+                /* 16 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio USB_OUT Format */
+                0x6,                                    /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                AUDIO_STREAMING_FORMAT_TYPE,            /* bDescriptorSubtype */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x04,                                   /* bSubslotSize :  4 Bytes per frame (32bits) */
+                24,                                     /* bBitResolution (24-bits per sample) */
+                /* 06 byte */ 
+ 
+                /* Endpoint Descriptor - STD AS ISO OUT Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_OUT_EP,                           /* bEndpointAddress 1 out endpoint */
+                0x05,                                   /* bmAttributes Asynchronous Isochronous mode */
+                0x00,0x04,                              /* wMaxPacketSize in Bytes 1024 per micro-frame */
+                0x01,                                   /* bInterval (Frames/Subframes) 2^(1-1)=1 */
+                /* 07 byte */
+    
+                    /* AudioControl Endpoint Descriptor - CS AS ISO OUT Endpoint */
+                    0x08,                                   /* bLength */
+                    USB_AUDIO_V2_CS_ENDPOINT,               /* bDescriptorType */
+                    USB_AUDIO_V2_EP_GENERAL,                /* bDescriptorSubtype */
+                    0x00,                                   /* bmAttributes */
+                    0x00,                                   /* bmControls */
+                    0x00,                                   /* bLockDelayUnits - Undefined */
+                    0x00,0x00,                              /* wLockDelay */
+                    /* 08 byte */
+    
+                /* Endpoint Descriptor - STD AS ISO Feedback Endpoint */
+                0x07,                                   /* bLength */
+                USB_DESC_TYPE_ENDPOINT,                 /* bDescriptorType */
+                AUDIO_FB_EP,                            /* bEndpointAddress 1 int endpoint */
+                0x11,                                   /* bmAttributes FeedBack Isochronous mode */
+                0x04,0x00,                              /* wMaxPacketSize in Bytes 4 per micro-frame */
+                0x03,                                   /* bInterval (Frames/Subframes) 2^(3-1)=4 */
+                /* 07 byte */
+    
+            /* Interface Descriptor - Audio Streaming OUT Interface - Alt15 */
+            AUDIO_INTERFACE_DESC_SIZE,              /* bLength */
+            USB_DESC_TYPE_INTERFACE,                /* bDescriptorType */
+            AUDIO_STREAMING_OUTPUT_INTERFACE_NUM,   /* bInterfaceNumber */
+            USB_AUDIO_OUTPUT_ALTSET_8CH32_M2_ON,       /* bAlternateSetting */
+            0x02,                                   /* bNumEndpoints */
+            USB_AUDIO_V2_CLASS_CODE,                /* bInterfaceClass */
+            USB_AUDIO_V2_AUDIOSTREAMING,            /* bInterfaceSubClass */
+            USB_AUDIO_V2_IP_VERSION_02_00,          /* bInterfaceProtocol */
+            0x00,                                   /* iInterface - Playback Active */
+            /* 09 byte */
+
+                /* AudioStreaming Interface Descriptor - Audio Stream OUT Interface Desc */
+                /* Interface 1, Alternate Setting 2                                           */
+                0x10,                                   /* bLength */
+                USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                USB_AUDIO_V2_AS_GENERAL,                /* bDescriptorSubtype */
+                AUDIO_IN_TERMINAL_OUTPUT,               /* bTerminalLink */
+                0x00,                                   /* bmControls */
+                USB_AUDIO_V2_FORMAT_TYPE_I,             /* bFormatType */
+                0x01,0x00,0x00,0x00,                    /* bmFormats D0 - PCM */
+                0x08,                                   /* bNrChannels */
+                0x7F,0x01,0x00,0x00,                    /* bmChannelConfig 0x0000017F  all channels control */
                 0x00,                                   /* iChannelNames */
                 /* 16 byte */
 

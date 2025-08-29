@@ -25,7 +25,7 @@ static const tUSB_AUDIO_REQ_L3_PARAM_BLOCK tRangeFreqOutput __attribute__ ((alig
             {44100, 44100, 0}, {48000, 48000, 0},
             {88200, 88200, 0}, {96000, 96000, 0},
             {176400, 176400, 0}, {192000, 192000, 0}, {352800, 352800, 0},
-            {384000, 384000, 0}, {705600, 705600, 0}, {768000, 768000, 0},
+            {384000, 384000, 0}, {705600, 705600, 0}, {768000, 768000, 0}
         }
     };
 
@@ -143,26 +143,35 @@ static inline void usb_PL_InterfaceState_Update ( USB_SETUP_PACKET *p )
         tEp1Fifo.len = sizeof(ep1buf) >> ( (USB_SFREQ_768k - tUsbControlStatus.streamSamplingFreq[eSTREAM_OUTPUT]) >> 1 );
         
         switch (p->bAltID) {
-            case USB_AUDIO_OUTPUT_ALTSET_2CH16_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_2CH16_M0_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_2CH16_M1_ON:
                 _I2S_Mode16_set();
                 tEp1Fifo.len >>= 1;
                 dma_output_2ch16_start(tEp1Fifo.len);                
                 break;
             
-            case USB_AUDIO_OUTPUT_ALTSET_2CH24_ON:
-            case USB_AUDIO_OUTPUT_ALTSET_2CH32_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_2CH24_M0_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_2CH32_M0_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_2CH24_M1_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_2CH32_M1_ON:
                 _I2S_Mode32_set();
                 dma_output_2ch32_start(tEp1Fifo.len);
                 break;
                 
-            case USB_AUDIO_OUTPUT_ALTSET_8CH16_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH16_M0_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH16_M1_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH16_M2_ON:
                 _I2S_Mode16_set();
                 tEp1Fifo.len >>= 1;
                 dma_output_8ch16_start(tEp1Fifo.len);                
                 break;
             
-            case USB_AUDIO_OUTPUT_ALTSET_8CH24_ON:
-            case USB_AUDIO_OUTPUT_ALTSET_8CH32_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH24_M0_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH32_M0_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH24_M1_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH32_M1_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH24_M2_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH32_M2_ON:
                 _I2S_Mode32_set();
                 dma_output_8ch32_start(tEp1Fifo.len);
                 break;
