@@ -148,9 +148,20 @@ typedef struct __attribute__ ((packed)) {
 }tRANGE_BLOCK;
 
 typedef struct __attribute__ ((packed)) {
+    uint16_t min;
+    uint16_t max;
+    uint16_t stp;
+}tRANGE_L2_BLOCK;
+
+typedef struct __attribute__ ((packed)) {
     uint16_t num;
     tRANGE_BLOCK range[USB_SFREQ_768k+1];
 }tUSB_AUDIO_REQ_L3_PARAM_BLOCK;
+
+typedef struct __attribute__ ((packed)) {
+    uint16_t num;
+    tRANGE_L2_BLOCK range;
+}tUSB_AUDIO_REQ_VOLUME_BLOCK;
 
 typedef struct {
     uint32_t adr;   // data buffer pointer
@@ -165,6 +176,8 @@ typedef struct {
     bool adr_pending;
     uint8_t adr;
     eUSB_SAMPLING_FREQ streamSamplingFreq[eSTREAM_NUM];
+    uint8_t streamInterfaceMute;
+    uint16_t streamInterfaceVolume;
     uint8_t streamInterfaceAltsetting[eSTREAM_NUM];
     uint8_t configuration;
     uint8_t setFeature[USB_SETUP_REQUEST_RECIPIENT_OTHER];

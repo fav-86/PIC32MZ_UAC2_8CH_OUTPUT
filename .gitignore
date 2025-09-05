@@ -63,3 +63,7 @@ dist/default/production/PIC32MZ_UAC2_8CH_OUTPUT.X.production.map
 .generated_files/flags/default/522162ee4b08d53d1ebe44f15f4a0347094f7edb
 .generated_files/flags/default/230b1a1f5f704b54be50ec6d71ea388b00f7811f
 .generated_files/flags/default/22e4a381b41ff67681401ef371fb32f107182718
+build/default/production/src/app/app.o.d
+build/default/production/src/app/app.o
+.generated_files/flags/default/f757d8572e50514df600872ba48fdb29ff63af1a
+.generated_files/flags/default/bc7ac452f4d9d8421c6a364e8d0e82140582baa6

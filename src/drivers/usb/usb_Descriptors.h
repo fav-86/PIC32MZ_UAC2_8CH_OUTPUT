@@ -175,7 +175,11 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                 USB_AUDIO_V2_HEADER,                    /* bDescriptorSubtype */
                 0x00,0x02,          /* 2.00 */          /* bcdADC */
                 USB_AUDIO_V2_IO_BOX,                    /* bCategory */
+                    #ifdef SYSTEM_VOLUME_OUTPUT_EN
+                0x40,0x00,                              /* wTotalLength = 46+18 = 64 Total length of digital connection, including standard interface length */
+                    #else
                 0x2E,0x00,                              /* wTotalLength = 46 Total length of digital connection, including standard interface length */
+                    #endif
                 0x00,                                   /* bmControls */
                 /* 09 byte */
     
@@ -206,6 +210,21 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                     0x00,                                   /* iChannelNames */
                     0x00,                                   /* iTerminal - USBH Out */
                     /* 17 byte */
+    
+                    /* AC Feature Unit Descriptor
+                     * Mute and volume control for OUTPUT Descriptor*/
+                        #ifdef SYSTEM_VOLUME_OUTPUT_EN
+                    0x12,                                   /* bLength */
+                    USB_AUDIO_V2_CS_INTERFACE,              /* bDescriptorType */
+                    USB_AUDIO_V2_FEATURE_UNIT,              /* bDescriptorSubtype */
+                    AUDIO_FEATURE_UNIT_OUTPUT,              /* bUnitID */
+                    AUDIO_IN_TERMINAL_OUTPUT,               /* bSourceID */
+                    0x0F, 0x00, 0x00, 0x00,                 /* bmaControls(0) Mute Control - host programmable, Volume Control - host programmable */
+                    0x0F, 0x00, 0x00, 0x00,                 /* bmaControls(1) Mute Control - host programmable, Volume Control - host programmable */
+                    0x0F, 0x00, 0x00, 0x00,                 /* bmaControls(2) Mute Control - host programmable, Volume Control - host programmable */
+                    0x00,                                   /* iFeature */
+                        #endif
+                    /* 18 byte */
 
                     /* AudioControl Interface Descriptor
                      * USB Output Terminal for OUTPUT Descriptor */
@@ -215,7 +234,11 @@ static const uint8_t ConfigurationDescriptor[] __attribute__ ((aligned (4))) =
                     AUDIO_OUT_TERMINAL_OUTPUT,              /* bTerminalID */
                     0x02,0x06,                              /* wTerminalType - A generic digital audio interface */
                     0x00,                                   /* bAssocTerminal */
+                        #ifdef SYSTEM_VOLUME_OUTPUT_EN
+                    AUDIO_FEATURE_UNIT_OUTPUT,              /* bSourceID */                    
+                        #else
                     AUDIO_IN_TERMINAL_OUTPUT,               /* bSourceID */
+                        #endif
                     AUDIO_SCLOCK_TERMINAL_OUTPUT,           /* bCSourceID */
                     0x00,0x00,                              /* bmControls - 0x0003 Copy Protect Control (read/write) */
                     0x00,                                   /* iTerminal - USBD In */

@@ -18,7 +18,8 @@ void main (void)
     port_init();
     dma_init();
     i2s_init();
-    uart_init( 9600 );
+    uart_init( 9600 );    
+    app_init();    
     
 #ifdef PIC32MZxxxxEC
     /*
@@ -42,6 +43,7 @@ void main (void)
         else
         {
             usb_PL_tasks();
+            uart_tasks();
         }
     }
 }

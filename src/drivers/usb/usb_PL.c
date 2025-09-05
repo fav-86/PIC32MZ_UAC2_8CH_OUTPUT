@@ -88,7 +88,8 @@ static const uint8_t i2sClkDiv[USB_FREQ_NUM] = {2, 2, 1, 1, 0, 0, 0, 0, 0, 0};
 #ifdef I2S_MCLK_1024Fs
 static const uint8_t i2sClkDiv[USB_FREQ_NUM] = {4, 4, 2, 2, 1, 1, 0, 0, 0, 0};
 #endif
-
+// Volume range set
+static const tUSB_AUDIO_REQ_VOLUME_BLOCK tRangeVolume __attribute__ ((aligned (4))) =  { 1, {1, 100, 1} };
 
 /*****************************************************************************
  Local variables
@@ -103,7 +104,6 @@ static uint8_t statusAnswer[] = {0x00, 0x00}; // Double Zero
 static uint8_t ep1buf[OUTPUT_TRANSFER_FIFO_SIZE] __attribute__((coherent)) __attribute__((aligned (16)));
 static tFbSettFreq tFreqLims;
 static tFIFO_CONTROL tEp1Fifo;
-
 
 /*****************************************************************************
  Global variables
@@ -121,8 +121,9 @@ void usb_PL_init (void)
     tFreqLims = tFeedBackFreq[USB_SFREQ_48k];
     
     tUsbControlStatus.streamSamplingFreq[eSTREAM_OUTPUT] = USB_SFREQ_48k;
+    tUsbControlStatus.streamInterfaceVolume = 100;
     
-    _CLK_I2S_Div_Set( i2sClkDiv[USB_SFREQ_48k] );    
+    _CLK_I2S_Div_Set( i2sClkDiv[USB_SFREQ_48k] );
     _DMA_OutputSourceAddress_Set(tEp1Fifo.adr);
     
     usb_LL_Init();
@@ -147,15 +148,22 @@ static inline void usb_PL_InterfaceState_Update ( USB_SETUP_PACKET *p )
             case USB_AUDIO_OUTPUT_ALTSET_2CH16_M1_ON:
                 _I2S_Mode16_set();
                 tEp1Fifo.len >>= 1;
-                dma_output_2ch16_start(tEp1Fifo.len);                
+                dma_output_2ch16_start(tEp1Fifo.len);
+                app_DataMode_set( MODE_2CH_16bit );
                 break;
             
             case USB_AUDIO_OUTPUT_ALTSET_2CH24_M0_ON:
-            case USB_AUDIO_OUTPUT_ALTSET_2CH32_M0_ON:
             case USB_AUDIO_OUTPUT_ALTSET_2CH24_M1_ON:
+                _I2S_Mode32_set();
+                dma_output_2ch32_start(tEp1Fifo.len);
+                app_DataMode_set( MODE_2CH_24bit );
+                break;
+                
+            case USB_AUDIO_OUTPUT_ALTSET_2CH32_M0_ON:
             case USB_AUDIO_OUTPUT_ALTSET_2CH32_M1_ON:
                 _I2S_Mode32_set();
                 dma_output_2ch32_start(tEp1Fifo.len);
+                app_DataMode_set( MODE_2CH_32bit );
                 break;
                 
             case USB_AUDIO_OUTPUT_ALTSET_8CH16_M0_ON:
@@ -163,17 +171,24 @@ static inline void usb_PL_InterfaceState_Update ( USB_SETUP_PACKET *p )
             case USB_AUDIO_OUTPUT_ALTSET_8CH16_M2_ON:
                 _I2S_Mode16_set();
                 tEp1Fifo.len >>= 1;
-                dma_output_8ch16_start(tEp1Fifo.len);                
+                dma_output_8ch16_start(tEp1Fifo.len);
+                app_DataMode_set( MODE_8CH_16bit );
                 break;
             
             case USB_AUDIO_OUTPUT_ALTSET_8CH24_M0_ON:
-            case USB_AUDIO_OUTPUT_ALTSET_8CH32_M0_ON:
             case USB_AUDIO_OUTPUT_ALTSET_8CH24_M1_ON:
-            case USB_AUDIO_OUTPUT_ALTSET_8CH32_M1_ON:
             case USB_AUDIO_OUTPUT_ALTSET_8CH24_M2_ON:
+                _I2S_Mode32_set();
+                dma_output_8ch32_start(tEp1Fifo.len);
+                app_DataMode_set( MODE_8CH_24bit );
+                break;
+                
+            case USB_AUDIO_OUTPUT_ALTSET_8CH32_M0_ON:
+            case USB_AUDIO_OUTPUT_ALTSET_8CH32_M1_ON:
             case USB_AUDIO_OUTPUT_ALTSET_8CH32_M2_ON:
                 _I2S_Mode32_set();
                 dma_output_8ch32_start(tEp1Fifo.len);
+                app_DataMode_set( MODE_8CH_32bit );
                 break;
         }
         
@@ -222,14 +237,9 @@ static inline void usb_PL_SamplingFreq_Set ( void )
             _CLK_I2S_Div_Set( i2sClkDiv[sfreq] );
             _CLK_I2S_ON();
         }
-        
-        if (freq_chng & 0x1) {   // if frequency domain is chainged
-            if (sfreq & 0x1) OSCSEL_SET_LOW();  // Set 48kHz clock domain
-            else OSCSEL_SET_HIGH(); // Set 44.1kHz clock domain
-        }
     }
     
-    _UartByteTransmitt( sfreq+1 );   //Setting UART enum Freq
+    app_Sampling_Freq_set( sfreq );
 }
 
 /*
@@ -322,11 +332,30 @@ static inline void usb_PL_ReqProcess ( void *pbuf )
                             default: USBE0CSR0bits.STALL = 1; break;
                         }
                         break;
+                        
+                    case AUDIO_FEATURE_UNIT_OUTPUT:
+                        switch (p->W_Value.byte.HB)
+                        {
+                            case 0x01:
+                                usb_LL_Ep0_BulkRead( &tUsbControlStatus.streamInterfaceMute, 1 );
+                                if (tUsbControlStatus.streamInterfaceMute)
+                                    app_Volume_set( 0 );
+                                else
+                                    app_Volume_set( tUsbControlStatus.streamInterfaceVolume );
+                                break;
+                                
+                            case 0x02:
+                                usb_LL_Ep0_BulkRead( &tUsbControlStatus.streamInterfaceVolume, 2 );
+                                app_Volume_set( tUsbControlStatus.streamInterfaceVolume );
+                                break;
+                                
+                            default: USBE0CSR0bits.STALL = 1; break;
+                        }
+                        break;
 
                     default: USBE0CSR0bits.STALL = 1; break;
                 }
                 break;
-                
                 
             default:
                 USBE0CSR0bits.STALL = 1;
@@ -390,6 +419,14 @@ static inline void usb_PL_ReqProcess ( void *pbuf )
                             default: USBE0CSR0bits.STALL = 1; break;
                         }                        
                         break;
+                        
+                    case AUDIO_FEATURE_UNIT_OUTPUT:
+                        switch (p->W_Value.byte.HB)
+                        {
+                            case 0x02: ptRange = &tRangeVolume; len = sizeof(tRangeVolume); break;  
+                            default: USBE0CSR0bits.STALL = 1; break;
+                        }
+                        break;
 
                     default: USBE0CSR0bits.STALL = 1; break;
                 }
@@ -414,6 +451,15 @@ static inline void usb_PL_ReqProcess ( void *pbuf )
                             case USB_AUDIO_SAMPLING_FREQ_CONTROL: pCurr = &aFreqCtrl[tUsbControlStatus.streamSamplingFreq[eSTREAM_OUTPUT]]; len = 4; break;
                             default: USBE0CSR0bits.STALL = 1; break;
                         }                        
+                        break;
+                        
+                    case AUDIO_FEATURE_UNIT_OUTPUT:
+                        switch (p->W_Value.byte.HB)
+                        {
+                            case 0x01: pCurr = &tUsbControlStatus.streamInterfaceMute; len = 1; break;
+                            case 0x02: pCurr = &tUsbControlStatus.streamInterfaceVolume; len = 2; break;
+                            default: USBE0CSR0bits.STALL = 1; break;
+                        }
                         break;
 
                     default: USBE0CSR0bits.STALL = 1; break;

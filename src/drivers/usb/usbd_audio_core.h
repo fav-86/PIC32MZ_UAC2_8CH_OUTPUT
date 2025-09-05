@@ -115,11 +115,10 @@ enum {
 
 enum {
     AUDIO_IN_TERMINAL_OUTPUT = 1,
-    AUDIO_IN_TERMINAL_INPUT,
     AUDIO_OUT_TERMINAL_OUTPUT,
-    AUDIO_OUT_TERMINAL_INPUT,
     AUDIO_SCLOCK_TERMINAL_OUTPUT,
-    AUDIO_SCLOCK_TERMINAL_INPUT
+    AUDIO_SCLOCK_TERMINAL_INPUT,
+    AUDIO_FEATURE_UNIT_OUTPUT
 };
 
 #define USB_AUDIO_OUTPUT_ALTSET_OFF                   0
@@ -161,7 +160,12 @@ enum {
 #define AUDIO_OUT_EP                                  0x01U
 #define AUDIO_FB_EP                                   0x81U
 #define AUDIO_IN_EP                                   0x85U
+
+    #ifdef SYSTEM_VOLUME_OUTPUT_EN
+#define USB_AUDIO_CONFIG_DESC_SIZ                     894U // 399 + 159 + 159 + 159 + 18
+    #else
 #define USB_AUDIO_CONFIG_DESC_SIZ                     876U // 399 + 159 + 159 + 159
+    #endif
 
 #define AUDIO_OUT_TC                                  0x01U
 #define AUDIO_IN_TC                                   0x02U

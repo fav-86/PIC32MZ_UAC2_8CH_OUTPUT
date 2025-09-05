@@ -20,11 +20,9 @@ extern "C" {
 #endif
     
     
-#define     _UartByteTransmitt(d)   U1TXREG = d
-
-    
-    
 void uart_init (const uint32_t datarate);
+void uart_tx_fifo_add (const void *ptr, uint8_t size);
+void uart_tasks (void);
 
 
     /* Provide C++ Compatibility */

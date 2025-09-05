@@ -50,7 +50,15 @@ typedef union {
         uint8_t b3;
     }byte;
 }tDWORD;
-    
+
+typedef enum {
+    MODE_2CH_16bit = 0,
+    MODE_2CH_24bit,
+    MODE_2CH_32bit,
+    MODE_8CH_16bit,
+    MODE_8CH_24bit,
+    MODE_8CH_32bit
+}eDATA_MODE;
     
 /********************************************************
  ******      User Defines           *********************
@@ -63,10 +71,13 @@ typedef union {
 #define I2S_MCLK_1024Fs
 
 // Set I2S output modules
-#define I2SBUF_CH12                     SPI2BUF
-#define I2SBUF_CH34                     SPI1BUF
-#define I2SBUF_CH56                     SPI3BUF
-#define I2SBUF_CH78                     SPI4BUF
+#define I2SBUF_CH12             SPI2BUF
+#define I2SBUF_CH34             SPI1BUF
+#define I2SBUF_CH56             SPI3BUF
+#define I2SBUF_CH78             SPI4BUF
+
+// enable output system volume to hardware attenuation
+//#define SYSTEM_VOLUME_OUTPUT_EN
 
 // Define primary clock frequency
 #define PRIMARY_CRYSTAL_FREQUENCY_Hz    12000000u
@@ -78,7 +89,7 @@ typedef union {
 #define SYS_TASK_USB_CONNECT            (0x01 << 0)
 #define SYS_TASK_USB_EP0_ISR            (0x01 << 1)
 #define SYS_TASK_USB_STREAM_OUT_INIT    (0x01 << 2)
-#define SYS_TASK_USB_START_DSD          (0x01 << 3)
+#define SYS_TASK_UART_FIFO_ADD          (0x01 << 3)
 
 // System tasks control macroses
 #define _System_Task_Set(bit)           systemTasks |= (uint32_t)bit
@@ -96,7 +107,10 @@ extern volatile int sysFreqHz;
 /* System Func */
 void sys_init (int sysfreq);
 
-
+void app_Sampling_Freq_set( const eUSB_SAMPLING_FREQ sfreq );
+void app_DataMode_set( const eDATA_MODE dmode );
+void app_Volume_set( uint8_t volume );
+void app_init( void );
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus
