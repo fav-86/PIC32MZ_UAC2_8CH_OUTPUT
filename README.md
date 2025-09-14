@@ -5,4 +5,4 @@ It developed and tested to work with native windows UAC2.0 driver, but also work
 To use project in custom design:
 1. Set global settings in the system.h header.
 2. Set pinout in the ports driver: ports.c & ports.h.
-3. Correct custom application functions if app.c
+3. Correct custom application functions in app.c
