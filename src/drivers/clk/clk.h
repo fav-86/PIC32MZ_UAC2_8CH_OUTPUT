@@ -19,8 +19,8 @@
 extern "C" {
 #endif
     
-#define _CLK_I2S_ON()                   {   REFO1CONbits.ON = 1; }
-#define _CLK_I2S_OFF()                  {   REFO1CONbits.ON = 0; }
+#define _CLK_I2S_ON()                   {   while (REFO1CONbits.ACTIVE != REFO1CONbits.ON); REFO1CONbits.ON = 1; }
+#define _CLK_I2S_OFF()                  {   while (REFO1CONbits.ACTIVE != REFO1CONbits.ON); REFO1CONbits.ON = 0; }
     
 #define _CLK_I2S_Div_Set(div)           {   while (REFO1CONbits.ACTIVE != REFO1CONbits.ON);\
                                             REFO1CON = 0\

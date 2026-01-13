@@ -41,7 +41,7 @@ void dma_init (void)
     DCH1CONbits.CHAEN = 1;                      // Channel is continuously enabled, and not automatically disabled after a block transfer is complete
     DCH1CONbits.CHPRI = 2;                      // Set channel priority higher than ch0
     // Only separate fields support!!!!
-    DCH1ECONbits.CHSIRQ = SPI_TX_VECTOR(&I2SBUF_CH12); // Channel Transfer Start IRQ
+    DCH1ECONbits.CHSIRQ = SPI_TX_VECTOR(&I2SBUF_CH34); // Channel Transfer Start IRQ
     DCH1ECONbits.SIRQEN = 1;                    // Enable transfer IRQ
 
     /**************************************************************************/
@@ -51,7 +51,7 @@ void dma_init (void)
     DCH2CONbits.CHAEN = 1;                      // Channel is continuously enabled, and not automatically disabled after a block transfer is complete
     DCH2CONbits.CHPRI = 2;                      // Set channel priority higher than ch0
     // Only separate fields support!!!!
-    DCH2ECONbits.CHSIRQ = SPI_TX_VECTOR(&I2SBUF_CH12); // Channel Transfer Start IRQ
+    DCH2ECONbits.CHSIRQ = SPI_TX_VECTOR(&I2SBUF_CH56); // Channel Transfer Start IRQ
     DCH2ECONbits.SIRQEN = 1;                    // Enable transfer IRQ
     
     /**************************************************************************/
@@ -61,7 +61,7 @@ void dma_init (void)
     DCH3CONbits.CHAEN = 1;                      // Channel is continuously enabled, and not automatically disabled after a block transfer is complete
     DCH3CONbits.CHPRI = 2;                      // Set channel priority higher than ch0
     // Only separate fields support!!!!
-    DCH3ECONbits.CHSIRQ = SPI_TX_VECTOR(&I2SBUF_CH12); // Channel Transfer Start IRQ
+    DCH3ECONbits.CHSIRQ = SPI_TX_VECTOR(&I2SBUF_CH78); // Channel Transfer Start IRQ
     DCH3ECONbits.SIRQEN = 1;                    // Enable transfer IRQ
     
     /**************************************************************************/
@@ -142,30 +142,30 @@ void dma_output_2ch16_start (const uint16_t size)
 void dma_output_8ch32_start (const uint16_t size)
 {
     // Channel 12 config
-    DCH0DSIZ = 4;                           // Destination size    
+    DCH0DSIZ = 4;                           // Destination size
     DCH0SSIZ = 8;                           // Source size
     DCH0CSIZ = 8;                           // Cell data size
     
     // Channel 34 config
-    DCH1DSIZ = 4;                           // Destination size    
+    DCH1DSIZ = 4;                           // Destination size
     DCH1SSIZ = 8;                           // Source size
     DCH1CSIZ = 8;                           // Cell data size
     DCH1SSA = KVA_TO_PA( pBuf+8 );          // Source data start address
     
     // Channel 56 config
-    DCH2DSIZ = 4;                           // Destination size    
+    DCH2DSIZ = 4;                           // Destination size
     DCH2SSIZ = 8;                           // Source size
     DCH2CSIZ = 8;                           // Cell data size
     DCH2SSA = KVA_TO_PA( pBuf+16 );         // Source data start address
     
     // Channel 78 config
-    DCH3DSIZ = 4;                           // Destination size    
+    DCH3DSIZ = 4;                           // Destination size
     DCH3SSIZ = 8;                           // Source size
     DCH3CSIZ = 8;                           // Cell data size
     DCH3SSA = KVA_TO_PA( pBuf+24 );         // Source data start address
     
     // Config buffer transfer
-    DCH4SSIZ = size;                        // Source size    
+    DCH4SSIZ = size;                        // Source size
     DCH4DSIZ = 32;                          // Destination size
     DCH4CSIZ = 32;                          // Cell data size
     
@@ -188,18 +188,18 @@ void dma_output_8ch32_start (const uint16_t size)
 void dma_output_8ch16_start (const uint16_t size)
 {
     // Channel 12 config
-    DCH0DSIZ = 2;                           // Destination size    
+    DCH0DSIZ = 2;                           // Destination size
     DCH0SSIZ = 4;                           // Source size
     DCH0CSIZ = 4;                           // Cell data size
     
     // Channel 34 config
-    DCH1DSIZ = 2;                           // Destination size    
+    DCH1DSIZ = 2;                           // Destination size
     DCH1SSIZ = 4;                           // Source size
     DCH1CSIZ = 4;                           // Cell data size
     DCH1SSA = KVA_TO_PA( pBuf+4 );          // Source data start address
     
     // Channel 56 config
-    DCH2DSIZ = 2;                           // Destination size    
+    DCH2DSIZ = 2;                           // Destination size
     DCH2SSIZ = 4;                           // Source size
     DCH2CSIZ = 4;                           // Cell data size
     DCH2SSA = KVA_TO_PA( pBuf+8 );          // Source data start address
@@ -211,7 +211,7 @@ void dma_output_8ch16_start (const uint16_t size)
     DCH3SSA = KVA_TO_PA( pBuf+12 );         // Source data start address
     
     // Config buffer transfer
-    DCH4SSIZ = size;                        // Source size    
+    DCH4SSIZ = size;                        // Source size
     DCH4DSIZ = 16;                          // Destination size
     DCH4CSIZ = 16;                          // Cell data size
     
